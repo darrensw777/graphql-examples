@@ -14,9 +14,16 @@ export default defineConfig({
             use: { ...devices['Desktop Chrome'] },
         },
     ],
-    webServer: {
-        command: 'npm run dev -- --host localhost --port 5173 --strictPort',
-        url: 'http://localhost:5173',
-        reuseExistingServer: !process.env.CI,
-    },
+    webServer: [
+        {
+            command: 'npm run dev -- --host localhost --port 5173 --strictPort',
+            url: 'http://localhost:5173',
+            reuseExistingServer: true,
+        },
+        {
+            command: 'npm run dev:server',
+            url: 'http://localhost:4000/graphql',
+            reuseExistingServer: true,
+        },
+    ],
 });

@@ -1,20 +1,20 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import App from '../App';
 
 describe('App', () => {
-    it('increments the counter when clicked', async () => {
-        const user = userEvent.setup();
-
+    it('shows the demo heading and user lookup', () => {
         render(<App />);
 
-        const button = screen.getByRole('button', {
-            name: /count is 0/i,
-        });
+        expect(
+            screen.getByRole('heading', {
+                level: 1,
+                name: 'GraphQL examples',
+            }),
+        ).toBeInTheDocument();
 
-        await user.click(button);
+        expect(screen.getByLabelText('User ID')).toBeInTheDocument();
 
-        expect(button).toHaveTextContent(/count is 1/i);
+        expect(screen.getByRole('button', { name: 'Find user' })).toBeInTheDocument();
     });
 });

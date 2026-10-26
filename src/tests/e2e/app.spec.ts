@@ -1,15 +1,16 @@
 import { expect, test } from '@playwright/test';
 
-test('increments the counter when clicked', async ({ page }) => {
+test('shows the GraphQL demo', async ({ page }) => {
     await page.goto('/');
 
-    const button = page.getByRole('button', {
-        name: /count is 0/i,
-    });
-
-    await button.click();
-
     await expect(
-        page.getByRole('button', { name: /count is 1/i }),
+        page.getByRole('heading', {
+            level: 1,
+            name: 'GraphQL examples',
+        }),
     ).toBeVisible();
+
+    await expect(page.getByLabel('User ID')).toBeVisible();
+
+    await expect(page.getByRole('button', { name: 'Find user' })).toBeVisible();
 });

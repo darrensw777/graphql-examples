@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
+        "build": "tsc -b && npm run typecheck:server && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
         "format": "prettier --write .",
@@ -13,9 +13,15 @@
         "test": "vitest",
         "test:run": "vitest run",
         "test:e2e": "playwright test",
-        "test:e2e:headed": "playwright test --headed"
+        "test:e2e:headed": "playwright test --headed",
+        "dev:server": "tsx watch server/index.ts",
+        "test:server": "vitest run --config vitest.server.config.ts",
+        "typecheck:server": "tsc --project server/tsconfig.json",
+        "test:all": "npm run test:run && npm run test:server && npm run test:e2e"
     },
     "dependencies": {
+        "graphql": "^17.0.2",
+        "graphql-yoga": "^5.24.6",
         "react": "^19.3.1",
         "react-dom": "^19.3.1"
     },
@@ -37,6 +43,7 @@
         "globals": "^17.13.0",
         "jsdom": "^29.1.1",
         "prettier": "^3.9.10",
+        "tsx": "^4.23.15",
         "typescript": "~6.0.3",
         "typescript-eslint": "^8.71.2",
         "vite": "^8.3.4",
